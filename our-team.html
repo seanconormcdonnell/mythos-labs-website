@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | Mythos Labs</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        mythos: {
+                            dark: '#020617',
+                            darker: '#000000',
+                            blue: '#3b82f6',
+                            bluelight: '#60a5fa',
+                            orange: '#f97316',
+                            orangelight: '#fb923c'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #020617;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            z-index: -1;
+            mask-image: radial-gradient(ellipse at top, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at top, black 20%, transparent 70%);
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+        }
+
+        .text-gradient-blue {
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-orange {
+            background: linear-gradient(to right, #fb923c, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn-orange-glow {
+            position: relative;
+        }
+        .btn-orange-glow::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #f97316, #fb923c, #ea580c);
+            z-index: -1;
+            border-radius: 9999px;
+            filter: blur(8px);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        .btn-orange-glow:hover::before {
+            opacity: 1;
+            filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-mythos-orange selection:text-white relative">
+
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
+        <div class="glass mx-auto max-w-7xl mt-4 rounded-full px-6 py-3 flex justify-between items-center w-[95%]">
+            <a href="mythos_labs_homepage.html" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-mythos-blue to-mythos-dark flex items-center justify-center border border-white/20 group-hover:border-mythos-bluelight transition-colors">
+                    <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="font-display font-bold text-xl tracking-tight text-white">Mythos<span class="text-mythos-blue">Labs</span></span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="mythos_labs_homepage.html#design" class="hover:text-white transition-colors">Design</a>
+                <a href="marketing.html" class="hover:text-white transition-colors">Marketing</a>
+                <a href="our-team.html" class="text-white transition-colors">Our Team</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="contact.html" class="hidden md:inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-white transition-all duration-200 bg-mythos-blue rounded-full hover:bg-blue-600 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                    Start Project
+                </a>
+                <button class="md:hidden text-slate-300 hover:text-white">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="relative pt-40 pb-20 overflow-hidden">
+        <div class="bg-grid"></div>
+        <div class="absolute top-1/3 left-1/4 w-96 h-96 bg-mythos-blue/15 rounded-full blur-[120px] mix-blend-screen pointer-events-none animate-pulse-slow"></div>
+        <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-mythos-orange/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 mb-6 reveal">
+                <i data-lucide="users" class="w-6 h-6 text-mythos-bluelight"></i>
+                <span class="text-mythos-bluelight font-semibold tracking-wide uppercase text-sm">The Architects</span>
+            </div>
+
+            <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-6 reveal" style="transition-delay: 100ms;">
+                Our <span class="text-gradient-blue">Team</span>
+            </h1>
+
+            <p class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed reveal" style="transition-delay: 200ms;">
+                Mythos Labs is a tight-knit collective of developers, designers, and strategists who believe great digital work starts with genuine partnership. We don't just build for clients—we build <span class="text-white font-medium">with</span> them, bringing technical depth, creative vision, and a relentless focus on your success.
+            </p>
+        </div>
+    </section>
+
+    <!-- Team Members -->
+    <section class="py-24 relative bg-slate-950 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">
+                    Meet the People Behind <span class="text-white italic">the Work.</span>
+                </h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+                    Every project is handled by senior talent—not passed off to junior staff. You'll work directly with the experts shaping your brand.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                
+                <!-- Sean -->
+                <div class="glass-card p-8 rounded-2xl text-center reveal" style="transition-delay: 100ms;">
+                    <div class="w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border-2 border-mythos-blue/30 p-1 relative group">
+                        <div class="w-full h-full rounded-full overflow-hidden">
+                            <img src="images/sean-suit-1x1.jpg" alt="Sean McDonnell" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Sean McDonnell</h3>
+                    <div class="text-mythos-bluelight text-sm font-medium mb-5 uppercase tracking-wider">Lead Developer</div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        With 19 years in web development, Sean brings deep technical expertise and an extensive history in SEO and Google Ads. He spent seven years at one of Dallas's top marketing firms, where he learned to build digital experiences that don't just look great—they drive measurable results.
+                    </p>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                        That rare blend of development and marketing discipline means Sean architects every project with performance in mind—from technical SEO foundations to conversion-focused ad strategy. He translates complex decisions into plain language so clients always know what's being built and why.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-mythos-blue/10 text-mythos-bluelight border border-mythos-blue/20">Full-Stack Dev</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-mythos-blue/10 text-mythos-bluelight border border-mythos-blue/20">SEO & Google Ads</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-mythos-blue/10 text-mythos-bluelight border border-mythos-blue/20">AI Integration</span>
+                    </div>
+                </div>
+
+                <!-- Erica -->
+                <div class="glass-card p-8 rounded-2xl text-center reveal border-mythos-orange/20 relative overflow-hidden" style="transition-delay: 200ms;">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-mythos-orange/5 blur-3xl rounded-full pointer-events-none"></div>
+                    <div class="w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border-2 border-mythos-orange/30 p-1 relative group z-10">
+                        <div class="w-full h-full rounded-full overflow-hidden">
+                            <img src="images/erica-head-shot.jpg" alt="Erica Rucker" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1 relative z-10">Erica Rucker</h3>
+                    <div class="text-mythos-orangelight text-sm font-medium mb-5 uppercase tracking-wider relative z-10">Lead Design</div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4 relative z-10">
+                        A graphic design genius and branding virtuoso. Erica excels at collaborating with clients to translate abstract concepts into visually stunning, high-converting digital realities.
+                    </p>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6 relative z-10">
+                        From initial mood boards to final pixel polish, Erica leads the creative vision for every project. She listens carefully to understand your brand's personality and audience, then crafts designs that feel unmistakably yours—not generic or templated.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-2 relative z-10">
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-mythos-orange/10 text-mythos-orangelight border border-mythos-orange/20">Brand Identity</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-mythos-orange/10 text-mythos-orangelight border border-mythos-orange/20">UI/UX Design</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-mythos-orange/10 text-mythos-orangelight border border-mythos-orange/20">Visual Strategy</span>
+                    </div>
+                </div>
+
+                <!-- Ashley -->
+                <div class="glass-card p-8 rounded-2xl text-center reveal" style="transition-delay: 300ms;">
+                    <div class="w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border-2 border-mythos-blue/30 p-1 relative group">
+                        <div class="w-full h-full rounded-full overflow-hidden">
+                            <img src="images/ashley-head-shot.jpg" alt="Ashley Navarro" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Ashley Navarro</h3>
+                    <div class="text-mythos-bluelight text-sm font-medium mb-5 uppercase tracking-wider">Marketing Strategist</div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        A former elementary teacher of 15 years turned tech strategist. Ashley brings a unique, empathetic insight into human thought processes, crafting ad campaigns that resonate deeply and drive action.
+                    </p>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                        Ashley bridges the gap between data and human behavior. She designs Google Ads campaigns and growth strategies that speak to real people—not algorithms—while continuously optimizing for measurable ROI and long-term brand loyalty.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-mythos-blue/10 text-mythos-bluelight border border-mythos-blue/20">Google Ads</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-mythos-blue/10 text-mythos-bluelight border border-mythos-blue/20">Growth Strategy</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-mythos-blue/10 text-mythos-bluelight border border-mythos-blue/20">Audience Research</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Service Mindset -->
+    <section class="py-24 relative bg-mythos-dark overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-mythos-blue/5 via-transparent to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                
+                <div class="lg:w-1/2 reveal">
+                    <div class="inline-flex items-center gap-2 mb-4">
+                        <i data-lucide="heart-handshake" class="w-6 h-6 text-mythos-orangelight"></i>
+                        <span class="text-mythos-orangelight font-semibold tracking-wide uppercase text-sm">How We Work</span>
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">
+                        A Customer Service <br>
+                        <span class="text-gradient-orange">Focused Mindset.</span>
+                    </h2>
+                    <p class="text-slate-400 text-lg mb-6 leading-relaxed">
+                        Technology is only half the equation. The other half is how we treat the people who trust us with their business. At Mythos Labs, exceptional client service isn't a department—it's embedded in everything we do.
+                    </p>
+                    <p class="text-slate-500 text-base leading-relaxed">
+                        We know hiring an agency can feel like a leap of faith. That's why we prioritize clarity, responsiveness, and accountability at every stage. You'll never wonder where your project stands or who's actually doing the work.
+                    </p>
+                </div>
+
+                <div class="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full reveal" style="transition-delay: 150ms;">
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="w-10 h-10 rounded-lg glass flex items-center justify-center mb-4 border-mythos-blue/30 text-mythos-bluelight">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="text-white font-semibold text-lg mb-2">Always Reachable</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">Direct access to your project leads—not a ticket queue. We respond promptly and keep communication clear, honest, and jargon-free.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="w-10 h-10 rounded-lg glass flex items-center justify-center mb-4 border-mythos-orange/30 text-mythos-orangelight">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="text-white font-semibold text-lg mb-2">Transparent Process</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">No black boxes. You'll see milestones, timelines, and progress updates so you're never left guessing what's happening behind the scenes.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="w-10 h-10 rounded-lg glass flex items-center justify-center mb-4 border-mythos-blue/30 text-mythos-bluelight">
+                            <i data-lucide="handshake" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="text-white font-semibold text-lg mb-2">True Partnership</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">We invest in understanding your goals, your audience, and your constraints. Your success is the metric we measure ourselves against.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="w-10 h-10 rounded-lg glass flex items-center justify-center mb-4 border-mythos-orange/30 text-mythos-orangelight">
+                            <i data-lucide="life-buoy" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="text-white font-semibold text-lg mb-2">Support Beyond Launch</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed">Launch day isn't goodbye. We stay available for updates, optimizations, and guidance as your business grows and evolves.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Strip -->
+    <section class="py-16 border-y border-white/5 bg-slate-950">
+        <div class="max-w-5xl mx-auto px-6 text-center reveal">
+            <p class="text-slate-400 text-lg md:text-xl leading-relaxed italic">
+                "We treat every client relationship like a long-term partnership—not a transaction. When you win, we win. That's the Mythos way."
+            </p>
+            <div class="mt-6 text-mythos-bluelight text-sm font-semibold uppercase tracking-widest">— The Mythos Labs Team</div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 relative bg-black text-center">
+        <div class="max-w-3xl mx-auto px-6 relative z-10 reveal">
+            <h2 class="font-display text-3xl md:text-5xl font-bold mb-6 text-white">Ready to Work Together?</h2>
+            <p class="text-slate-400 mb-8">Let's talk about your project. We'd love to learn what you're building and show you how our team can help.</p>
+            <a href="contact.html" class="inline-block btn-orange-glow">
+                <button class="px-8 py-4 bg-slate-900 rounded-full flex items-center justify-center gap-2 text-white font-semibold hover:bg-slate-800 transition-colors mx-auto">
+                    Start Your Project
+                    <i data-lucide="rocket" class="w-4 h-4"></i>
+                </button>
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-black py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <a href="mythos_labs_homepage.html" class="flex items-center gap-2 opacity-50 hover:opacity-100 transition-opacity">
+                <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                <span class="font-display font-bold text-lg text-white">Mythos<span class="text-mythos-blue">Labs</span></span>
+            </a>
+            
+            <div class="text-slate-600 text-sm">
+                &copy; 2026 Mythos Labs. All rights reserved. Architected for the future.
+            </div>
+
+            <div class="flex gap-4 text-slate-500">
+                <a href="#" class="hover:text-mythos-blue transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-mythos-blue transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-mythos-blue transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('backdrop-blur-md', 'bg-black/50', 'shadow-lg');
+                navbar.children[0].classList.remove('mt-4');
+                navbar.children[0].classList.add('mt-2');
+            } else {
+                navbar.classList.remove('backdrop-blur-md', 'bg-black/50', 'shadow-lg');
+                navbar.children[0].classList.add('mt-4');
+                navbar.children[0].classList.remove('mt-2');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mythos Labs | Tech-Forward Web & Marketing</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        mythos: {
+                            dark: '#020617', // slate-950
+                            darker: '#000000',
+                            blue: '#3b82f6',
+                            bluelight: '#60a5fa',
+                            orange: '#f97316',
+                            orangelight: '#fb923c'
+                        }
+                    },
+                    animation: {
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 40s linear infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 10px rgba(59, 130, 246, 0.2)' },
+                            '100%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #020617;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        /* Tech Grid Background */
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            z-index: -1;
+            mask-image: radial-gradient(ellipse at top, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at top, black 20%, transparent 70%);
+        }
+
+        .bg-grid-bottom {
+            mask-image: radial-gradient(ellipse at bottom, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at bottom, black 30%, transparent 80%);
+            bottom: 0;
+            top: auto;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Text Gradients */
+        .text-gradient-blue {
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-orange {
+            background: linear-gradient(to right, #fb923c, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Custom Orange Glow Button */
+        .btn-orange-glow {
+            position: relative;
+        }
+        .btn-orange-glow::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #f97316, #fb923c, #ea580c);
+            z-index: -1;
+            border-radius: 9999px;
+            filter: blur(8px);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        .btn-orange-glow:hover::before {
+            opacity: 1;
+            filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-mythos-orange selection:text-white relative">
+
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
+        <div class="glass mx-auto max-w-7xl mt-4 rounded-full px-6 py-3 flex justify-between items-center w-[95%]">
+            <a href="mythos_labs_homepage.html" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-mythos-blue to-mythos-dark flex items-center justify-center border border-white/20 group-hover:border-mythos-bluelight transition-colors">
+                    <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="font-display font-bold text-xl tracking-tight text-white">Mythos<span class="text-mythos-blue">Labs</span></span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#design" class="hover:text-white transition-colors">Design</a>
+                <a href="marketing.html" class="hover:text-white transition-colors">Marketing</a>
+                <a href="our-team.html" class="hover:text-white transition-colors">Our Team</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="contact.html" class="hidden md:inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-white transition-all duration-200 bg-mythos-blue rounded-full hover:bg-blue-600 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                    Start Project
+                </a>
+                <button class="md:hidden text-slate-300 hover:text-white">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
+        <!-- Background Grid & Glowing Orbs -->
+        <div class="bg-grid"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-mythos-blue/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-mythos-orange/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+        <div class="w-full flex flex-col items-center relative z-10">
+            <div class="max-w-7xl mx-auto px-6 text-center flex flex-col items-center">
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border-mythos-blue/30 text-mythos-bluelight text-xs font-semibold tracking-wide uppercase mb-8 reveal">
+                <span class="w-2 h-2 rounded-full bg-mythos-orange animate-pulse"></span>
+                Next-Gen Web & Marketing
+            </div>
+
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] mb-6 reveal max-w-5xl" style="transition-delay: 100ms;">
+                Architecting the <br>
+                <span class="text-gradient-blue relative inline-block">
+                    Digital Future
+                    <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-mythos-blue to-transparent opacity-50"></div>
+                </span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 font-light reveal" style="transition-delay: 200ms;">
+                We build high-performance web experiences and aggressive marketing engines that command authority and inspire <span class="text-white font-medium border-b border-mythos-orange/50">unwavering confidence</span> in your brand.
+            </p>
+
+            <div class="reveal" style="transition-delay: 300ms;">
+                <a href="contact.html" class="btn-orange-glow inline-block relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-mythos-orange to-red-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
+                    <span class="relative px-8 py-4 bg-slate-900 rounded-full flex items-center justify-center gap-2 text-white font-semibold transition-all">
+                        Get In Touch
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                </a>
+            </div>
+            </div>
+
+            <!-- Tech Stack Ticker -->
+            <div class="mt-24 w-full border-y border-white/5 bg-white/[0.02] py-6 overflow-hidden reveal" style="transition-delay: 400ms;">
+                <div class="flex w-max animate-marquee items-center">
+                    <div class="flex shrink-0 items-center gap-12 px-6 whitespace-nowrap text-slate-500 font-display text-sm font-semibold uppercase tracking-widest">
+                        <span>Advanced Analytics</span><span>•</span><span>Predictive AI</span><span>•</span><span>Bespoke Design</span><span>•</span><span>High-Conversion Ads</span><span>•</span><span>Technical SEO</span><span>•</span><span>Web3 Ready</span>
+                    </div>
+                    <div class="flex shrink-0 items-center gap-12 px-6 whitespace-nowrap text-slate-500 font-display text-sm font-semibold uppercase tracking-widest" aria-hidden="true">
+                        <span>Advanced Analytics</span><span>•</span><span>Predictive AI</span><span>•</span><span>Bespoke Design</span><span>•</span><span>High-Conversion Ads</span><span>•</span><span>Technical SEO</span><span>•</span><span>Web3 Ready</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="design" class="py-24 relative z-10 bg-mythos-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                
+                <div class="lg:w-1/2 reveal">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">
+                        Design That <br>
+                        <span class="text-white relative z-10">Instills Confidence.</span>
+                        <span class="absolute w-32 h-8 bg-mythos-blue/20 blur-xl -z-10 -translate-x-10 translate-y-2"></span>
+                    </h2>
+                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                        Your website is your digital storefront and your most relentless salesperson. We don't use templates. We meticulously craft bespoke, design-forward platforms tailored strictly to your users' psychology. 
+                    </p>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-lg glass flex items-center justify-center shrink-0 border-mythos-blue/30 text-mythos-bluelight">
+                                <i data-lucide="pen-tool" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-lg mb-1">Pixel-Perfect Authority</h4>
+                                <p class="text-slate-500 text-sm">Exceptional design translates directly to absolute trust. If you look like the industry leader, you become the industry leader.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-lg glass flex items-center justify-center shrink-0 border-mythos-blue/30 text-mythos-bluelight">
+                                <i data-lucide="monitor-smartphone" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-lg mb-1">Omnichannel Fluidity</h4>
+                                <p class="text-slate-500 text-sm">Flawless execution across every device, ensuring a premium experience whether on mobile or a 4K display.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Abstract Design Visual -->
+                <div class="lg:w-1/2 relative reveal w-full h-[500px]">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-mythos-blue/10 to-transparent rounded-3xl border border-white/10 overflow-hidden glass-card flex items-center justify-center">
+                        
+                        <!-- Floating UI Elements -->
+                        <div class="relative w-full h-full animate-float">
+                            <!-- Card 1 -->
+                            <div class="absolute top-10 right-10 w-64 h-32 glass border border-white/20 rounded-xl p-4 shadow-2xl backdrop-blur-md z-20">
+                                <div class="flex gap-3 items-center mb-4">
+                                    <div class="w-8 h-8 rounded-full bg-slate-700"></div>
+                                    <div class="h-2 w-24 bg-slate-700 rounded"></div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="h-2 w-full bg-slate-700 rounded"></div>
+                                    <div class="h-2 w-4/5 bg-slate-700 rounded"></div>
+                                </div>
+                            </div>
+                            <!-- Central Shape -->
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-mythos-blue to-purple-600 rounded-2xl rotate-12 shadow-[0_0_50px_rgba(59,130,246,0.3)] z-10 flex items-center justify-center">
+                                <i data-lucide="layout" class="w-16 h-16 text-white/50"></i>
+                            </div>
+                            <!-- Card 2 -->
+                            <div class="absolute bottom-10 left-10 w-56 h-40 glass border border-white/20 rounded-xl p-4 shadow-2xl backdrop-blur-md z-20">
+                                <div class="h-20 w-full bg-gradient-to-t from-mythos-orange/20 to-transparent rounded-lg mb-3 border border-mythos-orange/10"></div>
+                                <div class="flex justify-between items-end">
+                                    <div class="h-2 w-16 bg-slate-700 rounded"></div>
+                                    <div class="h-6 w-16 bg-mythos-blue/30 rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="ai" class="py-24 relative overflow-hidden bg-slate-950 border-y border-white/5">
+        <!-- Subtle AI background glow -->
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-mythos-blue/5 via-transparent to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            
+            <div class="inline-flex items-center gap-2 mb-4 reveal">
+                <i data-lucide="cpu" class="w-6 h-6 text-mythos-bluelight"></i>
+                <span class="text-mythos-bluelight font-semibold tracking-wide uppercase text-sm">Force Multiplier</span>
+            </div>
+            
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 reveal">
+                AI-Powered <span class="text-white italic">Velocity.</span>
+            </h2>
+            <p class="text-slate-400 text-lg max-w-3xl mx-auto mb-16 reveal">
+                Accelerate your growth. We leverage cutting-edge AI to streamline development, generate dynamic copy, and optimize code. The result? 
+                <span class="text-white font-medium">Superior products delivered in a fraction of the time, maximizing your ROI.</span>
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- AI Card 1 -->
+                <div class="glass-card p-8 rounded-2xl text-left reveal" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 rounded-full bg-mythos-blue/10 flex items-center justify-center mb-6 border border-mythos-blue/20">
+                        <i data-lucide="zap" class="w-6 h-6 text-mythos-bluelight"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Rapid Deployment</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">By automating boilerplate code and structural design with AI, we cut development cycles in half, getting your brand to market faster.</p>
+                </div>
+
+                <!-- AI Card 2 -->
+                <div class="glass-card p-8 rounded-2xl text-left border-mythos-orange/20 reveal relative overflow-hidden" style="transition-delay: 200ms;">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-mythos-orange/10 blur-3xl rounded-full"></div>
+                    <div class="w-12 h-12 rounded-full bg-mythos-orange/10 flex items-center justify-center mb-6 border border-mythos-orange/20 relative z-10">
+                        <i data-lucide="coins" class="w-6 h-6 text-mythos-orangelight"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 relative z-10">Reduced Investment</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed relative z-10">Fewer hours spent on manual tasks means more of your budget goes directly toward strategic growth, polished UI, and aggressive marketing.</p>
+                </div>
+
+                <!-- AI Card 3 -->
+                <div class="glass-card p-8 rounded-2xl text-left reveal" style="transition-delay: 300ms;">
+                    <div class="w-12 h-12 rounded-full bg-mythos-blue/10 flex items-center justify-center mb-6 border border-mythos-blue/20">
+                        <i data-lucide="bot" class="w-6 h-6 text-mythos-bluelight"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Intelligent Content</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">We utilize LLMs to structure compelling, conversion-optimized copy and metadata that perfectly aligns with search engine algorithms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 relative bg-slate-950 border-t border-white/5 text-center">
+        <div class="max-w-3xl mx-auto px-6 relative z-10 reveal">
+            <div class="inline-flex items-center gap-2 mb-4">
+                <i data-lucide="megaphone" class="w-6 h-6 text-mythos-orangelight"></i>
+                <span class="text-mythos-orangelight font-semibold tracking-wide uppercase text-sm">Growth Engine</span>
+            </div>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-4 text-white">Need More Leads, Fast?</h2>
+            <p class="text-slate-400 mb-8">For small and medium businesses, Google Ads is the fastest way to fill your pipeline—whether you're B2C or B2B. See how we drive results with targeted campaigns and technical SEO.</p>
+            <a href="marketing.html" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-semibold glass hover:bg-white/5 transition-all">
+                Marketing
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="py-20 relative bg-slate-950 border-t border-white/5 text-center">
+        <div class="max-w-3xl mx-auto px-6 relative z-10 reveal">
+            <div class="inline-flex items-center gap-2 mb-4">
+                <i data-lucide="users" class="w-6 h-6 text-mythos-bluelight"></i>
+                <span class="text-mythos-bluelight font-semibold tracking-wide uppercase text-sm">The Architects</span>
+            </div>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-4 text-white">Meet the Team Behind Mythos Labs</h2>
+            <p class="text-slate-400 mb-8">Developers, designers, and strategists united by a customer-first mindset. Get to know the people who will bring your project to life.</p>
+            <a href="our-team.html" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-semibold glass hover:bg-white/5 transition-all">
+                Our Team
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="py-20 relative bg-black border-t border-white/10 text-center">
+        <div class="max-w-3xl mx-auto px-6 relative z-10 reveal">
+            <h2 class="font-display text-3xl md:text-5xl font-bold mb-6 text-white">Ready to Upgrade?</h2>
+            <p class="text-slate-400 mb-8">Stop settling for mediocre design and passive marketing. Partner with Mythos Labs to build your digital empire.</p>
+            <a href="contact.html" class="inline-block btn-orange-glow">
+                <button class="px-8 py-4 bg-slate-900 rounded-full flex items-center justify-center gap-2 text-white font-semibold hover:bg-slate-800 transition-colors">
+                    Start Your Project Now
+                    <i data-lucide="rocket" class="w-4 h-4"></i>
+                </button>
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-black py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <a href="mythos_labs_homepage.html" class="flex items-center gap-2 opacity-50 hover:opacity-100 transition-opacity">
+                <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+                <span class="font-display font-bold text-lg text-white">Mythos<span class="text-mythos-blue">Labs</span></span>
+            </a>
+            
+            <div class="text-slate-600 text-sm">
+                &copy; 2026 Mythos Labs. All rights reserved. Architected for the future.
+            </div>
+
+            <div class="flex gap-4 text-slate-500">
+                <a href="#" class="hover:text-mythos-blue transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-mythos-blue transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-mythos-blue transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Icons and Interactions -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Scroll Reveal Logic
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // when to trigger
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        // Run on load and scroll
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger initially
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('backdrop-blur-md', 'bg-black/50', 'shadow-lg');
+                navbar.children[0].classList.remove('mt-4');
+                navbar.children[0].classList.add('mt-2');
+            } else {
+                navbar.classList.remove('backdrop-blur-md', 'bg-black/50', 'shadow-lg');
+                navbar.children[0].classList.add('mt-4');
+                navbar.children[0].classList.remove('mt-2');
+            }
+        });
+    </script>
+</body>
+</html>

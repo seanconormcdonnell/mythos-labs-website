@@ -4,6 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Mythos Labs</title>
+    <meta name="description" content="Start your project with Mythos Labs. Tell us about your goals and we'll respond quickly to schedule your free consultation.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://mythoslabs.tech/contact.html">
+    <meta name="theme-color" content="#020617">
+
+    <meta property="og:site_name" content="Mythos Labs">
+    <meta property="og:title" content="Contact | Mythos Labs">
+    <meta property="og:description" content="Get in touch with Mythos Labs. We'll respond quickly to schedule your free consultation.">
+    <meta property="og:url" content="https://mythoslabs.tech/contact.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mythoslabs.tech/images/og-image.png">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact | Mythos Labs">
+    <meta name="twitter:description" content="Start your project with Mythos Labs. Free consultation, no obligation.">
+    <meta name="twitter:image" content="https://mythoslabs.tech/images/og-image.png">
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Mythos Labs",
+        "url": "https://mythoslabs.tech/contact.html",
+        "description": "Contact Mythos Labs to start your web design or marketing project.",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "Mythos Labs",
+            "url": "https://mythoslabs.tech/",
+            "email": "seanconormcdonnell@gmail.com",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "sales",
+                "email": "seanconormcdonnell@gmail.com",
+                "availableLanguage": "English"
+            }
+        }
+    }
+    </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -114,6 +156,30 @@
             min-height: 140px;
             resize: vertical;
         }
+
+        .form-status {
+            display: none;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .form-status.visible { display: block; }
+        .form-status.success {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+        }
+        .form-status.error {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            color: #fdba74;
+        }
+        .form-status.loading {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-mythos-orange selection:text-white relative">
@@ -168,38 +234,35 @@
                 
                 <!-- Form -->
                 <div class="lg:col-span-3 reveal" style="transition-delay: 100ms;">
+                    <div id="form-status" class="form-status" role="alert" aria-live="polite"></div>
                     <form
-                        action="https://formsubmit.co/seanconormcdonnell@gmail.com"
-                        method="POST"
+                        id="contact-form"
                         class="glass-card p-8 md:p-10 rounded-2xl space-y-6"
+                        novalidate
                     >
-                        <input type="hidden" name="_subject" value="New Mythos Labs Project Inquiry">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="text" name="_honey" style="display:none">
-                        <input type="hidden" name="_next" value="https://mythoslabs.tech/contact.html?sent=true">
+                        <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
 
                         <div>
                             <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Name</label>
-                            <input type="text" id="name" name="name" required class="form-input" placeholder="Your name">
+                            <input type="text" id="name" name="name" required class="form-input" placeholder="Your name" autocomplete="name">
                         </div>
 
                         <div>
                             <label for="email" class="block text-sm font-medium text-slate-300 mb-2">Email</label>
-                            <input type="email" id="email" name="email" required class="form-input" placeholder="you@company.com">
+                            <input type="email" id="email" name="email" required class="form-input" placeholder="you@company.com" autocomplete="email">
                         </div>
 
                         <div>
                             <label for="phone" class="block text-sm font-medium text-slate-300 mb-2">Phone</label>
-                            <input type="tel" id="phone" name="phone" required class="form-input" placeholder="(555) 555-5555">
+                            <input type="tel" id="phone" name="phone" required class="form-input" placeholder="(555) 555-5555" autocomplete="tel">
                         </div>
 
                         <div>
                             <label for="project" class="block text-sm font-medium text-slate-300 mb-2">About Your Project</label>
-                            <textarea id="project" name="project" required class="form-input" placeholder="Tell us about your business, what you're looking to build, and any goals or timelines you have in mind."></textarea>
+                            <textarea id="project" name="message" required class="form-input" placeholder="Tell us about your business, what you're looking to build, and any goals or timelines you have in mind."></textarea>
                         </div>
 
-                        <button type="submit" class="w-full px-8 py-4 bg-mythos-blue rounded-xl text-white font-semibold hover:bg-blue-600 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all flex items-center justify-center gap-2">
+                        <button type="submit" id="submit-btn" class="w-full px-8 py-4 bg-mythos-blue rounded-xl text-white font-semibold hover:bg-blue-600 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
                             Send Message
                             <i data-lucide="send" class="w-4 h-4"></i>
                         </button>
@@ -278,10 +341,69 @@
     <script>
         lucide.createIcons();
 
-        if (new URLSearchParams(window.location.search).get('sent') === 'true') {
-            const form = document.querySelector('form');
+        const FORM_ENDPOINT = 'https://formsubmit.co/ajax/seanconormcdonnell@gmail.com';
+        const form = document.getElementById('contact-form');
+        const statusEl = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submit-btn');
+
+        function showStatus(message, type) {
+            statusEl.textContent = message;
+            statusEl.className = 'form-status visible ' + type;
+        }
+
+        function showSuccess() {
             form.innerHTML = '<div class="text-center py-12"><div class="w-16 h-16 rounded-full bg-mythos-blue/10 flex items-center justify-center mx-auto mb-6 border border-mythos-blue/20"><i data-lucide="check-circle" class="w-8 h-8 text-mythos-bluelight"></i></div><h2 class="font-display text-2xl font-bold text-white mb-3">Message Sent!</h2><p class="text-slate-400 text-sm max-w-sm mx-auto">Thanks for reaching out. We\'ll get back to you right away to schedule your consultation.</p></div>';
             lucide.createIcons();
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            if (form.querySelector('[name="_honey"]').value) return;
+
+            const formData = new FormData(form);
+            const payload = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                message: formData.get('message'),
+                _subject: 'New Mythos Labs Project Inquiry',
+                _template: 'table',
+                _captcha: 'false'
+            };
+
+            submitBtn.disabled = true;
+            showStatus('Sending your message…', 'loading');
+
+            try {
+                const response = await fetch(FORM_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json().catch(function () { return {}; });
+
+                if (response.ok && data.success !== false) {
+                    showSuccess();
+                    return;
+                }
+
+                throw new Error(data.message || 'Submission failed. Please try again.');
+            } catch (err) {
+                showStatus(
+                    'Something went wrong sending your message. Please email us directly at seanconormcdonnell@gmail.com, or try again in a moment.',
+                    'error'
+                );
+                submitBtn.disabled = false;
+            }
+        });
+
+        if (new URLSearchParams(window.location.search).get('sent') === 'true') {
+            showSuccess();
         }
 
         function reveal() {

@@ -180,6 +180,10 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: #94a3b8;
         }
+
+        #thank-panel { display: none; }
+        #thank-panel.visible { display: block; }
+        #form-panel.hidden { display: none; }
     </style>
 </head>
 <body class="antialiased selection:bg-mythos-orange selection:text-white relative">
@@ -234,39 +238,66 @@
                 
                 <!-- Form -->
                 <div class="lg:col-span-3 reveal" style="transition-delay: 100ms;">
-                    <div id="form-status" class="form-status" role="alert" aria-live="polite"></div>
-                    <form
-                        id="contact-form"
-                        class="glass-card p-8 md:p-10 rounded-2xl space-y-6"
-                        novalidate
-                    >
-                        <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
 
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Name</label>
-                            <input type="text" id="name" name="name" required class="form-input" placeholder="Your name" autocomplete="name">
+                    <div id="form-panel">
+                        <div id="form-status" class="form-status mb-4" role="alert" aria-live="polite"></div>
+                        <form
+                            id="contact-form"
+                            action="https://formsubmit.co/seanconormcdonnell@gmail.com"
+                            method="POST"
+                            class="glass-card p-8 md:p-10 rounded-2xl space-y-6"
+                        >
+                            <input type="hidden" name="_subject" value="New Mythos Labs Project Inquiry">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_next" value="https://mythoslabs.tech/contact.html?sent=1">
+                            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+                            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Name</label>
+                                <input type="text" id="name" name="name" required class="form-input" placeholder="Your name" autocomplete="name">
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-300 mb-2">Email</label>
+                                <input type="email" id="email" name="email" required class="form-input" placeholder="you@company.com" autocomplete="email">
+                            </div>
+
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-slate-300 mb-2">Phone</label>
+                                <input type="tel" id="phone" name="phone" required class="form-input" placeholder="(555) 555-5555" autocomplete="tel">
+                            </div>
+
+                            <div>
+                                <label for="project" class="block text-sm font-medium text-slate-300 mb-2">About Your Project</label>
+                                <textarea id="project" name="message" required class="form-input" placeholder="Tell us about your business, what you're looking to build, and any goals or timelines you have in mind."></textarea>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full px-8 py-4 bg-mythos-blue rounded-xl text-white font-semibold hover:bg-blue-600 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                                <span id="submit-label">Send Message</span>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="thank-panel" class="glass-card p-10 md:p-14 rounded-2xl text-center border border-mythos-blue/30">
+                        <div class="w-20 h-20 rounded-full bg-mythos-blue/10 flex items-center justify-center mx-auto mb-8 border border-mythos-blue/30">
+                            <i data-lucide="check-circle" class="w-10 h-10 text-mythos-bluelight"></i>
                         </div>
+                        <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">Thank You!</h2>
+                        <p class="text-slate-400 text-base leading-relaxed max-w-md mx-auto mb-3">
+                            Your message has been received. We'll get back to you right away to schedule your free consultation.
+                        </p>
+                        <p class="text-slate-500 text-sm max-w-sm mx-auto mb-8">
+                            Keep an eye on your inbox—we typically respond within one business day.
+                        </p>
+                        <a href="index.html" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-semibold glass hover:bg-white/5 transition-all text-sm">
+                            Back to Home
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
 
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-slate-300 mb-2">Email</label>
-                            <input type="email" id="email" name="email" required class="form-input" placeholder="you@company.com" autocomplete="email">
-                        </div>
-
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-slate-300 mb-2">Phone</label>
-                            <input type="tel" id="phone" name="phone" required class="form-input" placeholder="(555) 555-5555" autocomplete="tel">
-                        </div>
-
-                        <div>
-                            <label for="project" class="block text-sm font-medium text-slate-300 mb-2">About Your Project</label>
-                            <textarea id="project" name="message" required class="form-input" placeholder="Tell us about your business, what you're looking to build, and any goals or timelines you have in mind."></textarea>
-                        </div>
-
-                        <button type="submit" id="submit-btn" class="w-full px-8 py-4 bg-mythos-blue rounded-xl text-white font-semibold hover:bg-blue-600 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
-                            Send Message
-                            <i data-lucide="send" class="w-4 h-4"></i>
-                        </button>
-                    </form>
                 </div>
 
                 <!-- Response Info -->
@@ -338,72 +369,120 @@
         </div>
     </footer>
 
+    <script src="form-config.js"></script>
     <script>
         lucide.createIcons();
 
-        const FORM_ENDPOINT = 'https://formsubmit.co/ajax/seanconormcdonnell@gmail.com';
+        const formPanel = document.getElementById('form-panel');
+        const thankPanel = document.getElementById('thank-panel');
         const form = document.getElementById('contact-form');
         const statusEl = document.getElementById('form-status');
         const submitBtn = document.getElementById('submit-btn');
+        const submitLabel = document.getElementById('submit-label');
 
         function showStatus(message, type) {
             statusEl.textContent = message;
-            statusEl.className = 'form-status visible ' + type;
+            statusEl.className = 'form-status visible mb-4 ' + type;
         }
 
-        function showSuccess() {
-            form.innerHTML = '<div class="text-center py-12"><div class="w-16 h-16 rounded-full bg-mythos-blue/10 flex items-center justify-center mx-auto mb-6 border border-mythos-blue/20"><i data-lucide="check-circle" class="w-8 h-8 text-mythos-bluelight"></i></div><h2 class="font-display text-2xl font-bold text-white mb-3">Message Sent!</h2><p class="text-slate-400 text-sm max-w-sm mx-auto">Thanks for reaching out. We\'ll get back to you right away to schedule your consultation.</p></div>';
+        function clearStatus() {
+            statusEl.textContent = '';
+            statusEl.className = 'form-status mb-4';
+        }
+
+        function showThankYou() {
+            formPanel.classList.add('hidden');
+            thankPanel.classList.add('visible');
+            thankPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
             lucide.createIcons();
+        }
+
+        async function submitViaWeb3Forms(formData) {
+            const accessKey = (window.MYTHOS_FORM && window.MYTHOS_FORM.web3formsAccessKey) || '';
+            if (!accessKey) return null;
+
+            const payload = {
+                access_key: accessKey,
+                subject: 'New Mythos Labs Project Inquiry',
+                from_name: 'Mythos Labs Website',
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                message: formData.get('message')
+            };
+
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+            if (response.ok && data.success) return true;
+            throw new Error(data.message || 'Web3Forms submission failed.');
+        }
+
+        async function submitViaFormSubmit(formData) {
+            const response = await fetch('https://formsubmit.co/ajax/seanconormcdonnell@gmail.com', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: formData
+            });
+
+            const data = await response.json().catch(function () { return {}; });
+            if (response.ok) return true;
+            throw new Error(data.message || 'FormSubmit submission failed.');
+        }
+
+        function submitNativeFallback() {
+            showStatus('Completing submission…', 'loading');
+            const fallback = document.createElement('form');
+            fallback.method = 'POST';
+            fallback.action = 'https://formsubmit.co/seanconormcdonnell@gmail.com';
+            fallback.style.display = 'none';
+
+            Array.from(form.elements).forEach(function (el) {
+                if (!el.name || el.name === '_honey') return;
+                if (el.type === 'submit' || el.type === 'checkbox') return;
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = el.name;
+                input.value = el.value;
+                fallback.appendChild(input);
+            });
+
+            document.body.appendChild(fallback);
+            fallback.submit();
         }
 
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
+            clearStatus();
 
             if (form.querySelector('[name="_honey"]').value) return;
 
             const formData = new FormData(form);
-            const payload = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                message: formData.get('message'),
-                _subject: 'New Mythos Labs Project Inquiry',
-                _template: 'table',
-                _captcha: 'false'
-            };
-
             submitBtn.disabled = true;
+            submitLabel.textContent = 'Sending…';
             showStatus('Sending your message…', 'loading');
 
             try {
-                const response = await fetch(FORM_ENDPOINT, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await response.json().catch(function () { return {}; });
-
-                if (response.ok && data.success !== false) {
-                    showSuccess();
+                const web3Result = await submitViaWeb3Forms(formData);
+                if (web3Result === true) {
+                    showThankYou();
                     return;
                 }
 
-                throw new Error(data.message || 'Submission failed. Please try again.');
+                await submitViaFormSubmit(formData);
+                showThankYou();
             } catch (err) {
-                showStatus(
-                    'Something went wrong sending your message. Please email us directly at seanconormcdonnell@gmail.com, or try again in a moment.',
-                    'error'
-                );
-                submitBtn.disabled = false;
+                submitNativeFallback();
             }
         });
 
-        if (new URLSearchParams(window.location.search).get('sent') === 'true') {
-            showSuccess();
+        if (new URLSearchParams(window.location.search).get('sent') === '1') {
+            showThankYou();
+            history.replaceState(null, '', 'contact.html');
         }
 
         function reveal() {

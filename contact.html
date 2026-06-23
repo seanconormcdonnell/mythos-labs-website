@@ -421,8 +421,12 @@
 
                 function trackContactConversion() {
                     var sendTo = window.MYTHOS_GADS_CONTACT_SEND_TO || '';
-                    if (typeof gtag !== 'function' || !sendTo || sendTo.indexOf('PASTE_CONVERSION_LABEL') !== -1) return;
-                    gtag('event', 'conversion', { 'send_to': sendTo });
+                    if (typeof gtag !== 'function' || !sendTo) return;
+                    gtag('event', 'conversion', {
+                        'send_to': sendTo,
+                        'value': 1.0,
+                        'currency': 'USD'
+                    });
                 }
 
                 function showThankYou() {
